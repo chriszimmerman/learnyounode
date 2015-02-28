@@ -5,11 +5,9 @@ var fileExtension = commandLineArgs[3];
 var fs = require('fs');
 var pathModule = require('path');
 
-var files;
-
 fs.readdir(directoryPath, function callback(err, list){
-	files = list;
-	for(var file in files){
+	for(var i = 0; i < list.length; i++){
+		var file = list[i];	
 		if(pathModule.extname(file).substring(1) === fileExtension){
 			console.log(file);
 		}
