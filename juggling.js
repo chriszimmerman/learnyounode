@@ -3,27 +3,26 @@ var urls = args.slice(2);
 var http = require('http');
 
 var results = [];
-
 var finished = 0;
 
 var printResults = function(){
-		for(var j = 0; j < results.length; j++){
-			console.log(results[j]);
+		for(var i = 0; i < results.length; i++){
+			console.log(results[i]);
 		}
 };
 
-var setupGet = function(i){
-	http.get(urls[i], function(response){
+var setupGet = function(currentUrl){
+	http.get(urls[currentUrl], function(response){
 		response.setEncoding("utf8");
 
-		results[i] = "";
+		results[currentUrl] = "";
 		response.on("data", function(data){
-			results[i] += data;
+			results[currentUrl] += data;
 		});
 
 		response.on("end", function(data){
 			finished++;	
-			if(finished === 3) {
+			if(finished === urls.length) {
 				printResults();
 			}
 		});
